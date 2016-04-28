@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Hidden')"></head>
+
+<body ng-app="dblocapp">
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+    
+    <div class="container main-body" style="margin-top: 70px;">
+
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <h3 class="text-center"><span>DBLOC-IBS Hidden</span></h3>
+                    </div>
+                </div>
+
+                <div class="dbloc-table">
+                	<div class="form-group">
+                    	<label class="control-label col-xs-4">Date</label>
+		                <div class="input-group date-group date col-xs-8">
+		                    <input type="text" id="groupPointDate"  class="form-control" />
+		                    <span class="input-group-addon calendar-button">
+		                        <i class="fa fa-calendar"></i>
+		                    </span>
+		                </div>
+		            </div>
+                    <div>
+                        <button id="submit1" type="button" class="btn gold-button dbloc-add">
+                            Distribute Group Points
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dbloc-table">
+                	<div class="form-group">
+                    	<label class="control-label col-xs-4">Start Date</label>
+		                <div class="input-group date-group date col-xs-8">
+		                    <input type="text" id="weeklyEarningsDate"  class="form-control" />
+		                    <span class="input-group-addon calendar-button">
+		                        <i class="fa fa-calendar"></i>
+		                    </span>
+		                </div>
+		            </div>
+                    <div>
+                        <button id="submit2" type="button" class="btn gold-button dbloc-add">
+                            Generate Weekly Earnings
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dbloc-table">
+                    <div>
+                        <button id="submit3" type="button" class="btn gold-button dbloc-add">
+                            Create Accounts
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dbloc-table">
+                    <div>
+                        <button id="submit4" type="button" class="btn gold-button dbloc-add">
+                            Create Product Points
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="dbloc-table">
+                    <div>
+                        <button id="submit5" type="button" class="btn gold-button dbloc-add">
+                            Distribute All Group Points
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" sec:authorize="hasRole('USER')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <p>Access denied.</p>
+                    </div>
+                </div>
+      		</div>
+    	</div>
+    	
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$('#weeklyEarningsDate').datetimepicker({
+				format: "MM/DD/YYYY"
+			});
+	    	$('#groupPointDate').datetimepicker({
+				format: "MM/DD/YYYY"
+			});
+		}).on('click','#submit1',function() {
+            var url = window.location.href + '/distributeGroupPoints';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					date : $('#groupPointDate').val()
+				},
+				success : function(data) {
+					if(data.success == true) {
+						alert("yey!")
+					}
+				}
+			});
+		}).on('click','#submit2',function() {
+            var url = window.location.href + '/saveEarningsHistoryByDate';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					date : $('#weeklyEarningsDate').val()
+				},
+				success : function(data) {
+					if(data.success == true) {
+						alert("yey!!!")
+					}
+				}
+			});
+		}).on('click','#submit3',function() {
+            var url = window.location.href + '/createAccounts';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				success : function(data) {
+					if(data.success == true) {
+						alert("yey!!!!!!!!")
+					}
+				}
+			});
+		}).on('click','#submit4',function() {
+            var url = window.location.href + '/createProductPoints';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				success : function(data) {
+					if(data.success == true) {
+						alert("created wieee!!!!!!!!")
+					}
+				}
+			});
+		}).on('click','#submit5',function() {
+            var url = window.location.href + '/distributeAllGroupPoints';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					date : $('#groupPointDate').val()
+				},
+				success : function(data) {
+					if(data.success == true) {
+						alert("distributed wieee!!!!!!!!")
+					}
+				}
+			});
+		});
+    </script>
+
+</body>
+
+</html>

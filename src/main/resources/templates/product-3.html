@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Luminous')"></head>
+
+<body>
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/public-navigation :: public-navigation"></nav>
+
+    <div class="container" style="margin-top: 70px;">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr/>
+                    <h2 class="text-center product-label"> 
+                        <strong>Invigorating Blend</strong>
+                    </h2>
+                    <hr/>
+					<p>
+                    	<span class="bold-label">Active Ingredients and its Benefits </span>
+                    </p>
+                    <ul>
+                    	<li><p>
+                    		<span class="bold-label">Invigorating Blend Black Soap</span> - helps lighten skin pigmentation and other skin blemishes.  
+                    	</p></li>
+                    	<li><p>
+                    		<span class="bold-label">Invigorating Blend Day Toner</span> - with active ingredient used to treat acne and peels away uneven pigments making skin evenly lighter.
+                    	</p></li>
+                    	<li><p>
+                    		<span class="bold-label">Invigorating Blend Night Toner</span> - makes the skin appear younger and fairer.
+                    	</p></li>
+                    	<li><p>
+                    		<span class="bold-label">Invigorating Blend Fade Cream</span> - a soft multi-action cream for peeling to improve skin complexion with active 
+                    		ingredients that has anti-irritant and anti-inflammatory properties. It also contains sunscreen to protect the skin from harmful effects of sunlight. 
+                    	</p></li>
+                    	<li><p>
+                    		<span class="bold-label">Invigorating Blend UV Protection Cream</span> - a rich creamy emulsion that contains breakthrough formula that gives the face long lasting protection from 
+                    		UV rays that causes skin aging, dark spots, and other skin diseases.
+                    	</p></li>
+                    </ul>
+                    <p>
+                    	<span class="bold-label">Testimonials: </span>Coming Soon
+                    </p>
+					<a href="products#product-3"><h4 class="product-button text-center">Back to Products Page</h4></a>
+				</div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+    
+    <div id="loginModal" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title text-center">Members' Login</h4>
+	            </div>
+	            <div class="modal-body text-center">
+	                <p>Usernames and passwords will be available by <span class="bold-label">Sept 15</span>. 
+					Please visit our office for details.</p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	
+		}).on('click', '#members-login', function() {
+			//$('#loginModal').modal('show');
+		});
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Login')"></head>
+
+<body>
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/public-navigation :: public-navigation"></nav>
+    
+    <div class="container" style="margin-top: 70px; width: 50% !important">
+
+        <div class="row">
+            <div class="box login-box">
+				<form th:action="@{/login}" method="post">
+					<div class="form-group">
+	                    <input class="form-control" type="text" name="username" placeholder="Username" />
+	                </div>
+	                <div class="form-group">
+	                    <input class="form-control" type="password" name="password" placeholder="Password" />
+	                </div>
+	                <div class="alert alert-danger" style="padding: 3px 15px !important;" th:if="${param.error}">
+			            Invalid username and/or password.
+			        </div>
+	                <input type="submit" class="btn btn-primary btn-block btn-large gold-button" value="Log In" onClick="window.location.href='member-list.html'"/>
+				</form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	
+		});
+    </script>
+
+</body>
+
+</html>

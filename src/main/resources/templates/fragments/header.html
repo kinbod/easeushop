@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+
+<head th:fragment="header">
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title th:text="${pageTitle}"></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"/>
+    <link th:href="@{/css/select2-bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+
+    <link th:href="@{/css/angucomplete-alt.css}" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <!-- Fonts -->
+    <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css"/> -->
+	
+	<!-- jQuery -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/select2.min.js}"></script>
+    
+    <!-- Moment -->
+    <script th:src="@{/js/moment.js}"></script>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+
+    <!-- Angular -->
+    <script th:src="@{/js/angular.min.js}" type="application/javascript"/>
+    <script th:src="@{/js/angular-route.min.js}" type="application/javascript"/>
+    <script th:src="@{/js/angular-messages.min.js}" type="application/javascript"/>
+    <script th:src="@{/js/angucomplete-alt.min.js}" type="application/javascript"/>
+
+    <!-- Application JavaScript -->
+    <script th:src="@{/js/app.js}" type="application/javascript"/>
+    
+	<link rel="icon" type="image/png" th:href="@{/images/dbloc-logo-mini.png}" />
+
+    <script type="script/ng-template" id="error-messages">
+        <ng-message when="required">This field is required</ng-message>
+    </script>
+</head>
+<body></body>
+
+</html>

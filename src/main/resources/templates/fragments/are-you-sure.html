@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+	
+<body>
+	<div id="are-you-sure" class="modal fade" tabindex="-1" th:fragment="are-you-sure">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-body" th:text="${message}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-success" data-submit="save" ng-click="delete(record.id, $index)">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

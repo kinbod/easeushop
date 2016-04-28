@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Orders')"></head>
+
+<body ng-app="dblocapp">
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+    
+    <div class="container main-body" style="margin-top: 70px;" ng-controller="MemberEarningsController" ng-init="init()">
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <h3 class="text-center"><span>DBLOC-IBS Members Earnings</span></h3><br/>
+                        <!-- <h5 class="text-center"><span id="start-date-text"></span> - <span id="end-date-text"></span></h5> -->
+                    </div>
+                </div>
+                
+                <div class="dbloc-table">
+                	<div class="col-lg-12" style="margin-bottom: 25px;">  
+	                    <div class="col-xs-8">
+	                        <select id="member-list" class="form-control">
+	                        	<option value="">Select a Member</option>
+	                        	<th:block th:each="member : ${memberList}">
+	                       			<option th:value="${member.id}" th:text="${member.completeName}"></option>
+	                       		</th:block>
+	                        </select>
+	                    </div>
+	                    <div class="col-xs-4"><button id="view-earnings" type="button" class="btn gold-button col-xs-12">View Earnings</button></div>
+	                </div>
+	                <div id="members-earnings-table">
+	                	<div>
+		                	<p><span class="bold">Member Name: </span><span th:text="${memberName}"></span></p>
+		                </div>
+		                
+		                <p>This week's earnings</p>
+                		<table class="table table-striped table-bordered table-hover" th:if="${currentEarning != null}">
+	                        <thead>
+	                            <tr>
+	                                <th style="width: 25%">Start Date</th>
+	                                <th style="width: 25%">End Date</th>
+	                                <th style="width: 25%">Total Referral</th>
+	                                <th style="width: 25%">Total Earnings</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr>
+	                            	<td th:text="${currentEarning.startDateDisplay}"></td>
+	                            	<td th:text="${currentEarning.endDateDisplay}"></td>
+	                            	<td th:text="${currentEarning.totalPoints}"></td>
+	                            	<td>
+	                            		<div class="bold" style="font-size: 1.25em">Php <span th:text="${multiplier * ((currentEarning.totalPoints)/5)}"></span></div>
+	                            		<div th:if="${currentEarning.maturityPoints > 0}">
+	                            			<span class="label label-success" style="font-size: 1em">
+	                            				+<span th:text="${currentEarning.maturityPoints}"></span> Maturity Incentive
+	                            				 (+Php <span th:text="${currentEarning.maturityPoints * maturityValue}"></span>)
+	                            			</span>
+	                            		</div>
+	                            	</td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                    <div class="dbloc-table text-center" th:if="${currentEarning == null}">
+		                	<p>No earnings for the week yet.</p>
+		                </div>
+		                    
+                		<p>Ready for release</p>
+	                    <table class="table table-striped table-bordered table-hover" th:if="${memberEarnings != null}">
+	                        <thead>
+	                            <tr>
+	                                <th style="width: 25%">Start Date</th>
+	                                <th style="width: 25%">End Date</th>
+	                                <th style="width: 25%">Total Referral</th>
+	                                <th style="width: 25%">Total Earnings</th>
+	                                <!-- <th style="width: 20%">Status</th> -->
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                        	<th:block th:each="record : ${memberEarnings}">
+	                        		<tr>
+	                        		<td class="earnings-id hide" th:text="${record.id}"></td>
+	                        		<td th:text="${record.startDateDisplay}"></td>
+	                                <td th:text="${record.endDateDisplay}"></td>
+	                                <td th:text="${record.totalPoints}"></td>
+	                                <td>
+	                                	<div class="bold" style="font-size: 1.25em">Php <span th:text="${multiplier * ((record.totalPoints)/5)}"></span></div>
+	                            		<div th:if="${record.maturityPoints > 0}">
+	                            			<span class="label label-success" style="font-size: 1em">
+	                            				+<span th:text="${record.maturityPoints}"></span> Maturity Incentive
+	                            				 (+Php <span th:text="${record.maturityPoints * maturityValue}"></span>)
+	                            			</span>
+	                            		</div>
+	                                </td>
+	                                <!-- <td th:if="${record.isClaimed}">
+	                                	<span class="label label-success">RELEASED</span>
+	                                </td>
+	                                <td th:if="${!record.isClaimed}">
+	                                	<button class="btn btn-danger claim-earnings">RELEASE</button>
+	                               	</td> -->
+	                                </tr>
+	                        	</th:block>
+	                        </tbody>
+	                    </table>
+	                    <div class="dbloc-table text-center" th:if="${memberEarnings == null}">
+		                	<p>No earnings yet.</p>
+		                </div>
+                    </div>
+                </div>
+
+                <!-- <div class="dbloc-table">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%">Member Name</th>
+                                <th style="width: 20%">Total Referral</th>
+                                <th style="width: 20%">Total Earnings</th>
+                                <th style="width: 20%">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="record in records">
+                            	<td class="hide startDate">{{record.startDateDisplay}}</td>
+                            	<td class="hide endDate">{{record.endDateDisplay}}</td>
+                                <td>{{record.firstName + ' ' + record.lastName}}</td>
+                                <td>{{record.totalPoints}}</td>
+                                <td>{{settings.SETTINGS_EARNINGS_PER_POINT.numberValue * record.totalPoints}}</td>
+                                <td class="dbloc-controls">
+                                    <span class="label label-success" ng-show="record.isClaimed">CLAIMED</span>
+                                    <button class="btn btn-danger" ng-show="!record.isClaimed" ng-click="markClaimed($index)">CLAIM</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="row" sec:authorize="hasRole('USER')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <p>Access denied.</p>
+                    </div>
+                </div>
+      		</div>
+    	</div>
+    	
+    	<div id="are-you-sure" class="modal fade" tabindex="-1">
+	        <div class="vertical-alignment-helper">
+	            <div class="modal-dialog vertical-align-center">
+	                <div class="modal-content">
+	                    <div class="modal-body">
+	                    	<p>Are you sure you want to release earnings?</p>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+	                        <button id="verify-submit-earnings" type="button" class="btn btn-success" data-submit="save">Yes</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div id="successful" class="modal fade" tabindex="-1">
+	        <div class="vertical-alignment-helper">
+	            <div class="modal-dialog vertical-align-center">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title text-center"><i class="fa fa-check-circle"></i><span> Earnings successfully released</span></h4>
+	                    </div>
+	                    <div class="modal-footer" style="text-align: center;">
+	                        <button id="successful-okay" class="btn btn-success">Okay</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <script type="text/javascript">
+    	var earningsId;
+	    $(document).ready(function() {
+	    	$('body').tooltip({selector: '.edit-action, .remove-action'});
+	    	$('#member-list').select2();
+	    	
+	    	if($('#members-earnings-table').find('td').size() == 0) {
+	    		$('#members-earnings-table').hide();
+	    	}
+		}).on('click','#view-earnings', function() {
+			if($('#member-list').val() != '') {
+				window.location.href = "/admin/members-earnings/view/" + $('#member-list').val();
+			} else {
+				alert('Please select a member.');
+			}
+		}).on('click','.claim-earnings',function() {
+			$('#are-you-sure').modal('show');
+            earningsId = $(this).closest('tr').find('.earnings-id').text();
+		}).on('click','#verify-submit-earnings',function() {
+			$('#are-you-sure').modal('hide');
+			var url = '/admin/members-earnings/markClaimed';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					id : earningsId
+				},
+				success : function(data) {
+					if(data.success == true) {
+						$('#successful').modal('show');
+						setTimeout(function () {
+							location.reload(true);
+			    		}, 3000);
+					}
+				}
+			});
+		}).on('click', '#successful-okay', function() {
+			location.reload(true);
+		});
+
+    </script>
+
+</body>
+
+</html>

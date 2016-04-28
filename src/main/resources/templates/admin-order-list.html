@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Orders')"></head>
+
+<body ng-app="dblocapp">
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+    
+    <div class="container main-body" style="margin-top: 70px;" ng-controller="FormController" ng-init="init()">
+
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <h3 class="text-center"><span>DBLOC-IBS Orders</span></h3>
+                    </div>
+                </div>
+
+                <div class="dbloc-table">
+                    <div>
+                        <button type="button" class="btn gold-button dbloc-add" data-toggle="modal" data-target="#form-body">
+                            <i class="fa fa-plus"></i> Add Order
+                        </button>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%">Date</th>
+                                <th style="width: 45%">Member</th>
+                                <th style="width: 20%">Total Price</th>
+                                <th style="width: 5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="record in records">
+                                <td>{{record.createDate}}</td>
+                                <td>{{record.seller.fullName}}</td>
+                                <td>{{record.totalPrice}}</td>
+                                <td class="dbloc-controls">
+                                    <i class="fa fa-pencil edit-action" data-toggle="modal" data-target="#form-body" data-title="Edit" ng-click="get(record.id)"></i>
+                                    <i class="fa fa-trash-o remove-action" data-title="Delete" ng-click="delete(record.id, $index)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-box modal fade" aria-labelledby="Add Order" id="form-body">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-center">Add Order</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="form" novalidate="novalidate" ng-submit="submit(form)"  ng-controller="OrderController">
+                                <div class="form-group" ng-class="{ 'has-error' : form.name.$invalid &amp;&amp; (form.name.$touched || submitted)}">
+                                    <label class="control-label col-xs-4"> Member</label>
+                                    <div class="col-xs-8">
+                                        <input type="text" class="form-control col-xs-6" id="sellerName" name="sellerName"
+                                               ng-model="sellerName"
+                                               ng-required="true" />
+
+                                        <input type="hidden" id="seller" name="seller" ng-model="formData.seller" ng-required="true"/>
+                                        <ng-messages class="help-block" for="form.name.$error" ng-if="form.name.$touched || submitted">
+                                            <div ng-messages-include="/messages"></div>
+                                        </ng-messages>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">Items</label>
+                                    <div class="col-xs-8">
+                                        <textarea rows="3" class="form-control col-xs-6" id="description" name="description" ng-model="formData.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : form.price.$invalid &amp;&amp; (form.price.$touched || submitted)}">
+                                    <label class="control-label col-xs-4">Total Price</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Php</span>
+                                            <input type="text" class="form-control col-xs-6 money" id="price" name="price" ng-model="formData.price" ng-pattern="/^-?\d{1,3}(?:[\s,]\d{3})*(?:\.\d+)?$/" required="required" />
+                                            <span class="input-group-addon">.00</span>
+                                        </div>
+                                        <ng-messages class="help-block" for="form.price.$error" ng-if="form.price.$touched || submitted">
+                                            <div ng-messages-include="/messages"></div>
+                                        </ng-messages>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : form.points.$invalid &amp;&amp; (form.price.$touched || submitted) }">
+                                    <label class="control-label col-xs-4">Total Points</label>
+                                    <div class="col-xs-8">
+                                        <input type="text" class="form-control col-xs-6" id="points" name="points" ng-model="formData.points" required="required" />
+                                        <ng-messages class="help-block" for="form.points.$error" ng-if="form.points.$touched || submitted">
+                                            <div ng-messages-include="/messages"></div>
+                                        </ng-messages>
+                                    </div>
+                                </div>
+
+                                <button class="btn gold-button col-xs-4 save-form" type="submit" >Save</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" sec:authorize="hasRole('USER')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <p>Access denied.</p>
+                    </div>
+                </div>
+      		</div>
+    	</div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$('body').tooltip({selector: '.edit-action, .remove-action'});
+		});
+
+    </script>
+
+</body>
+
+</html>

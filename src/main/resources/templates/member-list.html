@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Members')"></head>
+
+<body ng-app="dblocapp">
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+    
+    <div class="container" style="margin-top: 70px;" ng-controller="FormController" ng-init="init()">
+
+        <div class="row" >
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <h3 class="text-center"><span>DBLOC-IBS Members</span></h3>
+                    </div>
+                </div>
+
+                <div class="dbloc-table">
+                    <div>
+                        <button type="button" class="btn gold-button dbloc-add" onClick="window.location.href='/admin/member/create'"> <!-- data-toggle="modal" data-target="#memberModal" -->
+                           <i class="fa fa-plus"></i> Add a Member
+                        </button>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%">First Name</th>
+                                <th style="width: 30%">Last Name</th>
+                                <th style="width: 20%">No. of Accounts</th>
+                                <th style="width: 5%"></th>
+                                <th style="width: 15%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	<th:block th:each="member : ${memberList}">
+                        		<tr>
+                        		<td th:text="${member.firstName}"></td>
+                                <td th:text="${member.lastName}"></td>
+                                <td th:text="${member.numOfAccounts}"></td>
+                                <td class="dbloc-controls">
+                                    <i class="fa fa-pencil edit-action" data-title="Edit" onClick="editMember(this)"><span class="memberId hide" th:text="${member.id}"></span></i>
+                                    <!-- <i class="fa fa-trash-o remove-action" data-id="${member.id}" data-title="Delete" ng-click="delete(record.id, $index)"></i> -->
+                                </td>
+                                <td class="dbloc-controls">
+                                	<div class="hidden-complete-name hide" th:text="${member.completeName}"></div>
+                                    <button type="button" class="btn btn-sm gold-button dbloc-add-account" data-toggle="modal" data-target="#addAccounts">Add Account/s</button>
+                                	<div class="hidden-username hide" th:text="${member.username}"></div>
+                                </td>
+                                </tr>
+                        	</th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" sec:authorize="hasRole('USER')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <p>Access denied.</p>
+                    </div>
+                </div>
+      		</div>
+    	</div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <div id="addAccounts" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Add Accounts" aria-hidden="true" data-username="0" data-backdrop="static" data-keyboard="false">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title text-center">Add Accounts</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                        	<div class="form-group">  
+                                <label class="control-label col-xs-4">Member Name</label>
+                                <div class="col-xs-8" style="padding-top: 7px">
+                                    <span id="member-complete-name"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">  
+                                <label class="control-label col-xs-4">Number of Account/s</label>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" id="num-of-accounts"/>
+                                </div>
+                            </div>
+                            <div class="form-group">  
+                                <label class="control-label col-xs-4">Date</label>
+                                <div class="input-group date-group date col-xs-6">
+                                    <input type="text" class="form-control" id="account-date" />
+				                    <span class="input-group-addon calendar-button">
+				                        <i class="fa fa-calendar"></i>
+				                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success" data-submit="save" id="submit-add-accounts">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="successful" class="modal fade" tabindex="-1">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center"><i class="fa fa-check-circle"></i><span> Accounts successfully added</span></h4>
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <button id="successful-okay" class="btn btn-success">Okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$('body').tooltip({selector: '.edit-action, .remove-action'});
+	    	
+	    	$('#account-date').datetimepicker({
+				defaultDate: new Date()
+			});
+		}).on('click','.dbloc-add-account',function() {
+			$('input').val('');
+			var elem = $(this).siblings('.hidden-username');
+			$('#addAccounts').data('username',$(elem).text());
+			var completeName = $(this).siblings('.hidden-complete-name').text();
+			$('#member-complete-name').html(completeName);
+		}).on('click','#submit-add-accounts',function() {
+            var url = window.location.href + '/addAccounts';
+            $.ajax({url : url,
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					username : $('#addAccounts').data('username'), numAccounts : $('#num-of-accounts').val(), date : $('#account-date').val()
+				},
+				success : function(data) {
+					if(data.success == true) {
+						$('#addAccounts').modal('hide');
+						$('#successful').modal('show');
+						setTimeout(function () {
+							location.reload(true);
+			    		}, 3000);
+					}
+				}
+			});
+		}).on('click', '#successful-okay', function() {
+			location.reload(true);
+		});
+	    
+	    function editMember(elem) {
+	    	window.location.href='/admin/member/edit/' + $(elem).find('.memberId').text();
+	    }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- Header Fragment -->
+<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Order')"></head>
+
+<body ng-app="dblocapp" ng-controller="OrderController" ng-init="init()">
+    <!-- Navigation Fragment -->
+    <nav th:replace="fragments/navigation :: navigation"></nav>
+    
+    <div class="container" style="margin-top: 70px;">
+
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <h3 class="text-center"><span>DBLOC-IBS Orders</span></h3>
+                    </div>
+                </div>
+
+                <div class="dbloc-table">
+                    <div>
+                    	<p th:if="${totalSales != null}"><span class="bold">Total Sales: </span><span th:text="${totalSales}"></span></p>
+                    	<p th:if="${weeklyTotalSales != null}"><span class="bold">Total Sales for the week: </span><span th:text="${weeklyTotalSales}"></span></p>
+                        <button id="order-products" type="button" class="btn gold-button dbloc-add" data-toggle="modal" data-target="#form-body">
+                            <i class="fa fa-shopping-cart"></i> Order Products
+                        </button>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                            	<th style="width: 15%">Date</th>
+                                <th style="width: 30%">Member Name</th>
+                                <th style="width: 35%">Products Ordered</th>
+                                <th style="width: 20%">Amount Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="record in records">
+                            	<td>{{record.orderDateString}}</td>
+                                <td>{{record.seller.completeName}}</td>
+                                <td>
+                                    <ul class="order-details">
+                                        <li ng-repeat="si in record.items">{{si.salesItemDisplay}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    {{record.totalPriceDisplay}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" sec:authorize="hasRole('USER')">
+            <div class="content-box">
+                <div>
+                    <div class="page-header">
+                        <p>Access denied.</p>
+                    </div>
+                </div>
+      		</div>
+    	</div>
+
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+    
+    <div id="form-body" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Order Products" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title text-center">Order Products</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="form" role="form" novalidate="novalidate" ng-submit="submit(form)">
+                            <div class="form-group">
+                                <label class="control-label col-xs-4">Member Name</label>
+                                <div class="col-xs-8" ng-class="{ 'has-error' : form.sellerId.$invalid &amp;&amp; (form.sellerId.$touched || submitted)}">
+                                    <angucomplete-alt id="members"
+                                                      placeholder="Search members"
+                                                      pause="200"
+                                                      selected-object="memberSelected"
+                                                      remote-url="/admin/member/search?key="
+                                                      remote-url-data-field="results"
+                                                      title-field="completeName"
+                                                      input-class="form-control"
+                                                      field-required="true"
+                                                      minlength="1"
+                                            />
+                                    <input type="hidden" name="sellerId" id="sellerId" ng-model="formData.sellerId" required="required"/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+		                    	<label class="control-label col-xs-4">Order Date</label>
+				                <div id="order-date-val-div" class="input-group date-group date col-xs-8">
+				                    <input type="text" class="form-control" name="orderDateStringVal" id="orderDateStringVal"/>
+				                    <span class="input-group-addon calendar-button">
+				                        <i class="fa fa-calendar"></i>
+				                    </span>
+				                </div>
+				            </div>
+				            
+				            <div class="form-group hide">
+		                    	<label class="control-label col-xs-4">Order Date</label>
+				                <div id="order-date-div" class="input-group date-group date col-xs-8"
+				                	ng-class="{ 'has-error' : form.orderDateString.$invalid &amp;&amp; (form.orderDateString.$touched || submitted)}">
+				                    <input type="text" class="form-control" name="orderDateString" id="orderDateString" 
+				                    	ng-model="formData.orderDateString" ng-required="true"/>
+				                </div>
+				            </div>
+				            
+                            <div class="form-group">  
+                                <label class="control-label col-xs-4">Orders
+                                    <button type="button" class="btn gold-button dbloc-add btn-sm" ng-click="addItem()" style="margin-left: 20px; margin-top: 5px">
+			                            <i class="fa fa-plus add-action"></i> Add Item
+			                        </button>
+                                </label>
+                                <div class="col-xs-8">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="form-group" ng-repeat="item in formData.items">
+                                <div class="col-xs-4">
+                                    <angucomplete-alt id="product-search"
+                                                      placeholder="Search Products"
+                                                      pause="200"
+                                                      selected-object="productSelected"
+                                                      remote-url="/admin/product/search?key="
+                                                      remote-url-data-field="results"
+                                                      title-field="name"
+                                                      input-class="form-control"
+                                                      initial-value="item.product"
+                                                      minlength="1"
+                                            />
+                                    <input type="hidden" name="productId" ng-model="item.productId" value="{{item.productId}}" />
+                                </div>
+                                <div class="col-xs-4" ng-class="{ 'has-error' : form.quantity.$invalid &amp;&amp; (form.quantity.$touched || submitted)}">
+                                    <input class="form-control" ng-model="item.quantity" value="{{item.quantity}}"
+                                           name="quantity" placeholder="Quantity" ng-change="quantityChanged($index)"
+                                           ng-required="true" ng-pattern="/\d+/"
+                                           />
+                                </div>
+                                <div class="col-xs-3">
+                                    <input class="form-control" ng-model="item.totalPrice" value="{{item.totalPrice}}" name="totalPrice" placeholder="Total Price" readonly="readonly"/>
+                                </div>
+                                <div class="col-xs-1" style="margin-top: 8px;">
+                                    <i class="fa fa-trash-o remove-action" data-title="Delete" ng-click="deleteItem($index)"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-4">Price</label>
+                                <div class="col-xs-8" ng-class="{ 'has-error' : form.totalPrice.$invalid &amp;&amp; (form.totalPrice.$touched || submitted)}">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Php</span>
+                                        <input type="text" class="form-control col-xs-6 money" name="totalPrice"
+                                               ng-model="formData.totalPrice" readonly="readonly"
+                                                ng-required="true" />
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="submit-order" type="submit" class="btn btn-success" data-submit="save" ng-click="submit(form)">Submit Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	$('body').tooltip({selector: '.edit-action, .remove-action, .view-action'});
+	    	$('#memberName').select2();
+	    	$('#orderDateStringVal').datetimepicker({
+	    		format: "MM/DD/YYYY"
+	    	}).on('dp.change', function() {
+	    		$('#orderDateString').val($(this).val()).trigger('change');
+	    		if($('#order-date-div').hasClass('has-error')) {
+	    			$('#order-date-val-div').addClass('has-error');
+	    		} else {
+	    			$('#order-date-val-div').removeClass('has-error');
+	    		}
+	    	});
+		}).on('click','#order-products',function() {
+			$('input').val('');
+			$('.remove-action').trigger('click');
+		}).on('click', '.calendar-button', function() {
+			$(this).siblings('input').trigger('focus');
+		}).on('click', '#submit-order', function() {
+			if($('#orderDateStringVal').val() == '') {
+				$('#order-date-val-div').addClass('has-error');
+    		} else {
+    			$('#order-date-val-div').removeClass('has-error');
+    		}
+		});
+    </script>
+
+</body>
+
+</html>
