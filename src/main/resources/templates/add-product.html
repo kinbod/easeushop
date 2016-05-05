@@ -9,7 +9,7 @@
     <nav th:replace="fragments/navigation :: navigation"></nav>
     
     <div class="container" style="margin-top: 70px;">
-    	<div class="row">
+    	<div class="row" sec:authorize="hasAuthority('ADMIN')">
             <div class="content-box">
 		    	<h3 class="modal-title text-center">Add Product</h3>
 		    	<form class="form-horizontal" action="#" th:action="@{/add-product}" th:object="${product}" method="post">

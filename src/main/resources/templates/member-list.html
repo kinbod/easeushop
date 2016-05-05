@@ -10,7 +10,7 @@
     
     <div class="container" style="margin-top: 70px;" ng-controller="FormController" ng-init="init()">
 
-        <div class="row" >
+        <div class="row" sec:authorize="hasAuthority('ADMIN')">
             <div class="content-box">
                 <div>
                     <div class="page-header">
