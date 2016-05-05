@@ -21,79 +21,70 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DatabaseConfig {
 
-    @Autowired
-    private Environment env;
+	@Autowired
+	private Environment env;
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-    @Autowired
-    private LocalContainerEntityManagerFactoryBean entityManagerFactory;
+	@Autowired
+	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
-        return dataSource;
-    }
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(env.getProperty("db.driver"));
+		dataSource.setUrl(env.getProperty("db.url"));
+		dataSource.setUsername(env.getProperty("db.username"));
+		dataSource.setPassword(env.getProperty("db.password"));
+		return dataSource;
+	}
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactory =
-                new LocalContainerEntityManagerFactoryBean();
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
-        entityManagerFactory.setDataSource(dataSource);
+		entityManagerFactory.setDataSource(dataSource);
 
-        // Classpath scanning of @Component, @Service, etc annotated class
-        entityManagerFactory.setPackagesToScan(
-                env.getProperty("entitymanager.packagesToScan"));
+		// Classpath scanning of @Component, @Service, etc annotated class
+		entityManagerFactory.setPackagesToScan(env.getProperty("entitymanager.packagesToScan"));
 
-        // Vendor adapter
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
+		// Vendor adapter
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 
-        // Hibernate properties
-        Properties additionalProperties = new Properties();
-        additionalProperties.put(
-                "hibernate.dialect",
-                env.getProperty("hibernate.dialect"));
-        additionalProperties.put(
-                "hibernate.show_sql",
-                env.getProperty("hibernate.show_sql"));
-        additionalProperties.put(
-                "hibernate.hbm2ddl.auto",
-                env.getProperty("hibernate.hbm2ddl.auto"));
-        additionalProperties.put("hibernate.enable_lazy_load_no_trans", true);
-        entityManagerFactory.setJpaProperties(additionalProperties);
+		// Hibernate properties
+		Properties additionalProperties = new Properties();
+		additionalProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		additionalProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+		additionalProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		additionalProperties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+		additionalProperties.put("hibernate.enable_lazy_load_no_trans", true);
+		entityManagerFactory.setJpaProperties(additionalProperties);
 
-        return entityManagerFactory;
-    }
+		return entityManagerFactory;
+	}
 
-    /**
-     * Declare the transaction manager.
-     */
-    @Bean
-    public JpaTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager =
-                new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(
-                entityManagerFactory.getObject());
-        return transactionManager;
-    }
+	/**
+	 * Declare the transaction manager.
+	 */
+	@Bean
+	public JpaTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
+		return transactionManager;
+	}
 
-    /**
-     * PersistenceExceptionTranslationPostProcessor is a bean post processor
-     * which adds an advisor to any bean annotated with Repository so that any
-     * platform-specific exceptions are caught and then rethrown as one
-     * Spring's unchecked data access exceptions (i.e. a subclass of
-     * DataAccessException).
-     */
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+	/**
+	 * PersistenceExceptionTranslationPostProcessor is a bean post processor
+	 * which adds an advisor to any bean annotated with Repository so that any
+	 * platform-specific exceptions are caught and then rethrown as one Spring's
+	 * unchecked data access exceptions (i.e. a subclass of
+	 * DataAccessException).
+	 */
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
 
 }
