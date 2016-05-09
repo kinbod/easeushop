@@ -17,8 +17,8 @@ import java.util.Properties;
 /**
  * Created by Gino on 8/28/2015.
  */
-@Configuration
-@EnableTransactionManagement
+//@Configuration
+//@EnableTransactionManagement
 public class DatabaseConfig {
 
 	@Autowired
