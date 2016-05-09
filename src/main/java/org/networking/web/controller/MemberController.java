@@ -9,7 +9,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.networking.entity.Account;
+import org.networking.entity.Address;
 import org.networking.entity.Member;
+import org.networking.entity.Person;
 import org.networking.service.AccountPointsService;
 import org.networking.service.AccountService;
 import org.networking.service.AddressService;
@@ -55,12 +57,27 @@ public class MemberController extends BaseController<Member> {
 	@RequestMapping(method = { RequestMethod.GET })
 	public String view(Model model) {
 		model.addAttribute("memberList", memberService.getAllMembersOrderByDate());
+		Person pa = new Person();
+		Person pb = new Person();
+		pa.setPerson_name("carl");
+		pa.setPerson_age(12);
+		pb.setPerson_name("carls");
+		pb.setPerson_age(13);
+		
+		Address ad = new Address("adc","23423");
+		Address bd = new Address("adcd","123423");
+		pa.getAddresses().add(ad);
+		pa.getAddresses().add(bd);
+		pb.getAddresses().add(ad);
+		personService.save(pa);
 		return "member-list";
 	}
 
 	@RequestMapping("/create")
 	public String memberCreatePage(Member member, Model model) {
 		model.addAttribute("memberList", memberService.findAll());
+		Person pa = personService.load(1L);
+		personService.delete(pa);
 		return "member-add";
 	}
 
