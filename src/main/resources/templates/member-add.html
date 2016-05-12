@@ -236,7 +236,7 @@
 				<span id="member-created" th:text="${memberCreate}"></span>
 			</div>
 			
-			<div class="row" sec:authorize="hasRole('USER')">
+			<div class="row" sec:authorize="hasAuthority('USER')">
 	            <div class="content-box">
 	                <div>
 	                    <div class="page-header">

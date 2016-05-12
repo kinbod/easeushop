@@ -57,19 +57,6 @@ public class MemberController extends BaseController<Member> {
 	@RequestMapping(method = { RequestMethod.GET })
 	public String view(Model model) {
 		model.addAttribute("memberList", memberService.getAllMembersOrderByDate());
-		Person pa = new Person();
-		Person pb = new Person();
-		pa.setPerson_name("carl");
-		pa.setPerson_age(12);
-		pb.setPerson_name("carls");
-		pb.setPerson_age(13);
-		
-		Address ad = new Address("adc","23423");
-		Address bd = new Address("adcd","123423");
-		pa.getAddresses().add(ad);
-		pa.getAddresses().add(bd);
-		pb.getAddresses().add(ad);
-		personService.save(pa);
 		return "member-list";
 	}
 

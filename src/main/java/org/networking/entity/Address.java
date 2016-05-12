@@ -3,7 +3,11 @@
  */
 package org.networking.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 /**
  * @author carlquan
@@ -15,6 +19,9 @@ public class Address extends BaseEntity {
 	private String street;
 
 	private String number;
+
+	@ManyToMany(mappedBy = "addresses")
+	private List<Person> owners = new ArrayList<>();
 
 	public Address() {
 	}
@@ -30,6 +37,10 @@ public class Address extends BaseEntity {
 
 	public String getNumber() {
 		return number;
+	}
+
+	public List<Person> getOwners() {
+		return owners;
 	}
 
 }

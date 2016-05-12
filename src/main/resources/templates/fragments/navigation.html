@@ -21,16 +21,16 @@
                 	<li>
                         <a href="/my-earnings" class="home-link about-link" th:classappend="${#httpServletRequest.getRequestURI() == '/my-earnings' ? 'active':''}">My Earnings</a>
                     </li>
-                    <li sec:authorize="hasRole('ADMIN')">
+                    <li sec:authorize="hasAuthority('ADMIN')">
                         <a href="/admin/member" class="home-link about-link" th:classappend="${(#httpServletRequest.getRequestURI() == '/admin/member' || #httpServletRequest.getRequestURI() == '/admin/member/create') ? 'active':''}">Members</a>
                     </li>
-                    <li sec:authorize="hasRole('ADMIN')">
+                    <li sec:authorize="hasAuthority('ADMIN')">
                         <a href="/admin/product" class="home-link about-link" th:classappend="${(#httpServletRequest.getRequestURI() == '/admin/product' || #httpServletRequest.getRequestURI() == '/add-product') ? 'active':''}">Products</a>
                     </li>
-                    <li sec:authorize="hasRole('ADMIN')">
+                    <li sec:authorize="hasAuthority('ADMIN')">
                         <a href="/admin/order" class="home-link about-link" th:classappend="${(#httpServletRequest.getRequestURI() == '/admin/order' || #httpServletRequest.getRequestURI() == '/order-products') ? 'active':''}">Order</a>
                     </li>
-                    <li sec:authorize="hasRole('ADMIN')">
+                    <li sec:authorize="hasAuthority('ADMIN')">
                         <a href="/admin/members-earnings" class="home-link about-link" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/members-earnings' ? 'active':''}">Members Earnings</a>
                     </li>
                     <li class="dropdown">
@@ -42,8 +42,8 @@
 							<li class="home-link about-link">
 								<a href="/account-settings">Account Settings</a>
 							</li>
-							<li sec:authorize="hasRole('ADMIN')" class="divider"></li>
-							<li sec:authorize="hasRole('ADMIN')">
+							<li sec:authorize="hasAuthority('ADMIN')" class="divider"></li>
+							<li sec:authorize="hasAuthority('ADMIN')">
 								<a href="/admin/settings">Admin Settings</a>
 							</li>
 							<li class="divider"></li>

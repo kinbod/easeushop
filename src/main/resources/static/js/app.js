@@ -9,10 +9,10 @@ var app = angular.module("dblocapp", ['ngMessages', 'angucomplete-alt']);
 * Controllers go here...
 * */
 app.
-    controller("FormController", function($scope,$http) {
+    controller("FormController", function($scope,$http,$location) {
         $scope.formData = {};
         $scope.records = [];
-
+        $scope.test = 'abc';
         $scope.init = function() {
             var url = window.location.href + '/list';
             $http({
