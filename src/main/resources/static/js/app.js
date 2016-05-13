@@ -4,15 +4,14 @@ $.fn.dblocPage = function(options) {
     });
 };
 
-var app = angular.module("dblocapp", ['ngMessages', 'angucomplete-alt']);
+var app = angular.module("dblocapp", ['ngMessages', 'angucomplete-alt','ui.bootstrap']);
 /*
-* Controllers go here...
-* */
+ * Controllers go here...
+ */
 app.
     controller("FormController", function($scope,$http,$location) {
         $scope.formData = {};
         $scope.records = [];
-        $scope.test = 'abc';
         $scope.init = function() {
             var url = window.location.href + '/list';
             $http({
@@ -149,7 +148,7 @@ app.controller("OrderController", function($scope, $http, $controller){
 app.controller("ProductController", function($scope, $http, $controller) {
     angular.extend(this, $controller('FormController', {$scope: $scope}));
 
-    //Set default value to PERCENTAGE
+    // Set default value to PERCENTAGE
     $scope.formData.memberPointsType = 'PERCENTAGE';
 
     $scope.setMemberPointsType = function (value) {
@@ -162,18 +161,13 @@ app.controller("ProductController", function($scope, $http, $controller) {
 app.controller("MemberEarningsController", function($scope, $http, $controller) {
     $controller('SettingsController', {$scope : $scope});
     $scope.records = [];
-  /* $scope.init = function() {
-       $scope.findByKey('SETTINGS_EARNINGS_PER_POINT', function(){
-           var url = window.location.href + '/members';
-           $http({
-               method: 'GET',
-               url: url
-           }).success(function (data) {
-               $scope.records = data.members;
-               console.log($scope);
-           });
-       });
-   };*/
+  /*
+	 * $scope.init = function() {
+	 * $scope.findByKey('SETTINGS_EARNINGS_PER_POINT', function(){ var url =
+	 * window.location.href + '/members'; $http({ method: 'GET', url: url
+	 * }).success(function (data) { $scope.records = data.members;
+	 * console.log($scope); }); }); };
+	 */
     $scope.markClaimed = function(index) {
       var record = $scope.records[index];
         if(record != null) {
@@ -222,7 +216,7 @@ app.controller("SettingsController", function($scope, $http, $controller) {
 /**
  * Custom directives...
  */
-//Directive for number only input... Weird error...
+// Directive for number only input... Weird error...
 app.directive('numberOnlyInput', function () {
     return {
         restrict: 'EA',
