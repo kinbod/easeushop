@@ -63,8 +63,6 @@ public class MemberController extends BaseController<Member> {
 	@RequestMapping("/create")
 	public String memberCreatePage(Member member, Model model) {
 		model.addAttribute("memberList", memberService.findAll());
-		Person pa = personService.load(1L);
-		personService.delete(pa);
 		return "member-add";
 	}
 
