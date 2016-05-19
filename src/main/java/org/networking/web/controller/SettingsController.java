@@ -1,15 +1,11 @@
 package org.networking.web.controller;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.networking.entity.Settings;
 import org.networking.service.SettingsService;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +18,6 @@ public class SettingsController  extends BaseController<Settings> {
 	
 	@RequestMapping(method = {RequestMethod.GET})
 	public String view() {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-			    .getAuthentication()
-			    .getPrincipal();
-		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         return "admin-settings";
 	}
 

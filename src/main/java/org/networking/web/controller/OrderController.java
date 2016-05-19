@@ -14,7 +14,6 @@ import org.networking.service.AccountPointsService;
 import org.networking.service.MemberService;
 import org.networking.service.ProductService;
 import org.networking.service.SalesOrderService;
-import org.networking.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

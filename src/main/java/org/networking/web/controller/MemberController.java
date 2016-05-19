@@ -9,9 +9,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.networking.entity.Account;
-import org.networking.entity.Address;
 import org.networking.entity.Member;
-import org.networking.entity.Person;
 import org.networking.service.AccountPointsService;
 import org.networking.service.AccountService;
 import org.networking.service.AddressService;
