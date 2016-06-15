@@ -7,12 +7,16 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * Created by Gino on 8/28/2015.
  */
 @Configuration
 @EnableAutoConfiguration
+@EnableAuthorizationServer
+@EnableResourceServer
 @ComponentScan
 @EnableScheduling
 public class Application extends SpringBootServletInitializer {
