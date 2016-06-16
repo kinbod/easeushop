@@ -37,17 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
+	public void init(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/","/webjars/**","/resources/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/webjars/**", "/products", "/product-**", "/infinite-business-solutions", "/contact",
+				.antMatchers("/products", "/product-**", "/infinite-business-solutions", "/contact",
 						"/h2-console/**")
 				.permitAll()
-				// .antMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll()
 				.deleteCookies("remember-me").and().exceptionHandling().accessDeniedPage("/unauthorized");
