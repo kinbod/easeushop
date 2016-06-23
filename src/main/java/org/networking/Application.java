@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableAutoConfiguration
 @EnableAuthorizationServer
 @EnableResourceServer
+@EnableOAuth2Client
 @ComponentScan
 @EnableScheduling
 public class Application extends SpringBootServletInitializer {
