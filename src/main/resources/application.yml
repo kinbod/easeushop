@@ -1,0 +1,37 @@
+# Allow Thymeleaf templates to be reloaded at dev time
+spring:
+  thymeleaf:
+    cache: false
+server:
+  port: 9999
+  #context-path: /client
+  tomcat:
+    accesslog:
+      enabled: true
+      basedir: target/tomcat
+#Database
+db:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/networking
+  username: root
+  password: root
+#Hibernate
+hibernate:
+         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+         show_sql: true
+         format_sql: true
+         hbm2ddl:
+               auto: update
+entitymanager:
+            packagesToScan: org.networking
+            
+#secuer
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      access-token-uri: http://localhost:8080/oauth/token
+      user-authorization-uri: http://localhost:8080/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8080/me     
