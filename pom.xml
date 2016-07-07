@@ -9,6 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -104,10 +105,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
@@ -147,9 +144,9 @@
 
 	<repositories>
 		<repository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
+			<id>CN</id>
+			<name>OSChina Central</name>
+			<url>http://maven.oschina.net/content/groups/public/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>

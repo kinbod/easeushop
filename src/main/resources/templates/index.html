@@ -153,9 +153,15 @@
 	                <h4 class="modal-title text-center">Members' Login</h4>
 	            </div>
 	            <div class="modal-body text-center">
-	                <p>Usernames and passwords will be available by <span class="bold-label">Sept 15</span>. 
-					Please visit our office for details.</p>
-	            </div>
+					<div>
+						<div>
+							With Facebook: <a href="/login/facebook">click here</a>
+						</div>
+						<div>
+							With Github: <a href="/login/github">click here</a>
+						</div>
+					</div>
+				</div>
 	        </div>
 	    </div>
 	</div>
@@ -180,7 +186,7 @@
 		}).on('click', '.brand-name', function() {
 			goToSection('who-are-we', 75);
 		}).on('click', '#members-login', function() {
-			//$('#loginModal').modal('show');
+			$('#loginModal').modal('show');
 		});
 		
 		var goToSection = function(elementToFocus,offset) {
