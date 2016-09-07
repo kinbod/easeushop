@@ -1,5 +1,7 @@
 package org.networking.custom;
 
+import org.networking.entity.User;
+import org.networking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usr) throws UsernameNotFoundException {
-        User user = userRepository.findByUsr(usr);
+        User user = userRepository.findByUsername(usr);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User %s does not exist!", usr));
         }

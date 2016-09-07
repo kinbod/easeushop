@@ -1,5 +1,12 @@
 package org.networking.custom;
 
+import org.networking.component.CustomPasswordEncoder;
+import org.networking.component.LogHelper;
+import org.networking.entity.User;
+import org.networking.enums.LogType;
+import org.networking.repository.UserRepository;
+import org.networking.tools.LogUtils;
+import org.networking.tools.SpringSecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +38,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // Find user.
         String username = token.getName();
-        User user = userRepository.findByUsr(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) { //If user does not exists, throw UsernameNotFoundException.
             throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
         }
 
         // Compare password and credentials of authentication.
-        if (!customPasswordEncoder.matches(token.getCredentials().toString(), user.getPwd())) {
+        if (!customPasswordEncoder.matches(token.getCredentials().toString(), user.getPassword())) {
             throw new BadCredentialsException("Invalid username/password");
         }
         CustomUserRepositoryUserDetails userDetails = new CustomUserRepositoryUserDetails(user);
@@ -68,7 +75,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         //Authorize.
-        return new UsernamePasswordAuthenticationToken(userDetails, user.getPwd(), userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), userDetails.getAuthorities());
     }
 
     @Override

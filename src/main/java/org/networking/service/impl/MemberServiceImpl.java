@@ -57,7 +57,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements Member
 			member.setPassword(new BCryptPasswordEncoder().encode(member.getNewPassword()));
 		}
 		if(member.getTempRole() != null) {
-			member.grantRole(User.Role.valueOf(member.getTempRole()));
+			//member.grantRole(User.Role.valueOf(member.getTempRole()));
 		}
 		
 		try {
