@@ -1,5 +1,7 @@
 package org.networking.custom;
 
+import org.networking.entity.User;
+import org.networking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

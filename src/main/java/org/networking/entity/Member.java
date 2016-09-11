@@ -23,6 +23,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "MEMBER")
 public class Member extends User{
 
+	public Member(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+
 	@JsonView
 	@OneToMany(mappedBy = "member", cascade=CascadeType.ALL)
 	private List<Account> accounts;

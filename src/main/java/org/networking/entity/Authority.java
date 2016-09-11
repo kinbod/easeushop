@@ -6,8 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.networking.entity.User.Role;
-
 /**
  * Created by Gino on 8/29/2015.
  */
