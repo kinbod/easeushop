@@ -51,7 +51,7 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
 
     @Override
     public String getUsername() {
-        return getUsr();
+        return getUsername();
     }
 
     @Override

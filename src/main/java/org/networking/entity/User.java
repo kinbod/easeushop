@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.networking.enums.ValidFlag;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,17 +34,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "USER")
 public class User extends BaseEntity {
 	
-	@NotEmpty
-    @Column(unique = true, nullable = false, length = 20)
-    private String usr;
 	
     @Column(name="USERNAME", nullable = false, unique = true)
     private String username;
 
-    @Column(name="FIRST_NAME", nullable = false)
+    @Column(name="FIRST_NAME")
     private String firstName;
 
-    @Column(name="LAST_NAME", nullable = false)
+    @Column(name="LAST_NAME")
     private String lastName;
 
     @Column(name="MIDDLE_NAME")
@@ -127,7 +123,6 @@ public class User extends BaseEntity {
     public User(Long id, String name, String usr, String pwd) {
         this.id = id;
         username = name;
-        this.usr = usr;
         password = pwd;
     }
 
@@ -135,11 +130,14 @@ public class User extends BaseEntity {
         super();
         this.id = user.getId();
         username = user.getUsername();
-        usr = user.getUsr();
         password = user.getPassword();
     }
     
-    public String getUsername() {
+    public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -150,14 +148,6 @@ public class User extends BaseEntity {
     public String getFirstName() {
         return firstName;
     }
-
-    public String getUsr() {
-		return usr;
-	}
-
-	public void setUsr(String usr) {
-		this.usr = usr;
-	}
 
 	public void setFirstName(String firstName) {
         this.firstName = firstName;
