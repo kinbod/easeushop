@@ -1,5 +1,7 @@
 package org.networking.custom;
 
+import org.networking.entity.Client;
+import org.networking.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

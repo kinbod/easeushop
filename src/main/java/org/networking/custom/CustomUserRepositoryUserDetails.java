@@ -1,5 +1,8 @@
 package org.networking.custom;
 
+import org.networking.entity.Group;
+import org.networking.entity.Resource;
+import org.networking.entity.Role;
 import org.networking.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,12 +51,12 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
 
     @Override
     public String getUsername() {
-        return getUsr();
+        return getUsername();
     }
 
     @Override
     public String getPassword() {
-        return getPwd();
+        return getPassword();
     }
 
     @Override

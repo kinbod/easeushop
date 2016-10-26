@@ -12,8 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -25,22 +24,24 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Created by Gino on 8/28/2015.
  */
 @Entity
 @EntityListeners({AuditingEntityListener.class})
-@Table(name = "users")
-@NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
+@Table(name = "USER")
 public class User extends BaseEntity {
+	
 	
     @Column(name="USERNAME", nullable = false, unique = true)
     private String username;
 
-    @Column(name="FIRST_NAME", nullable = false)
+    @Column(name="FIRST_NAME")
     private String firstName;
 
-    @Column(name="LAST_NAME", nullable = false)
+    @Column(name="LAST_NAME")
     private String lastName;
 
     @Column(name="MIDDLE_NAME")
@@ -114,9 +115,29 @@ public class User extends BaseEntity {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
+    
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Authority> authorities;
 
+    public User(Long id, String name, String usr, String pwd) {
+        this.id = id;
+        username = name;
+        password = pwd;
+    }
 
-    public String getUsername() {
+    public User(User user) {
+        super();
+        this.id = user.getId();
+        username = user.getUsername();
+        password = user.getPassword();
+    }
+    
+    public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -128,7 +149,7 @@ public class User extends BaseEntity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -172,6 +193,32 @@ public class User extends BaseEntity {
         this.oldPassword = oldPassword;
     }
     
+    public void grantRole(Role role) {
+        if (authorities == null) {
+            authorities = new HashSet<Authority>();
+        }
+        authorities.add(new Authority(this, role));
+    }
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+    public String getCompleteName() {
+        return firstName + " " + lastName;
+    }
 
 	public boolean isAccountNonExpiredAlias() {
 		return isAccountNonExpiredAlias;
@@ -284,24 +331,6 @@ public class User extends BaseEntity {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
-	public String getNewPassword() {
-		return newPassword;
-	}
-
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
-    public String getCompleteName() {
-        return firstName + " " + lastName;
-    }
+    
+    
 }

@@ -60,8 +60,7 @@ public class OAuth2ServerConfig {
 
             @Override
             public void configure(HttpSecurity http) throws Exception {
-                http
-                        .csrf().disable()
+                    http.csrf().disable()
                         .authorizeRequests()
                         .antMatchers(WELCOME_URL).authenticated()
                         .antMatchers(CLIENT_URL).hasAnyAuthority("root", "client")

@@ -5,6 +5,39 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="spring-boot-starter-data-jpa-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-data-jpa/spring-boot-starter-data-jpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter/spring-boot-starter">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot/spring-boot">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-autoconfigure-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-autoconfigure/spring-boot-autoconfigure">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-logging-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-logging/spring-boot-starter-logging">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-aop-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-aop/spring-boot-starter-aop">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-jdbc-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-jdbc/spring-boot-starter-jdbc">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-web-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-web/spring-boot-starter-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-security-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-security/spring-boot-starter-security">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-tomcat-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-tomcat/spring-boot-starter-tomcat">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-boot-starter-thymeleaf-1.4.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-boot-starter-thymeleaf/spring-boot-starter-thymeleaf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/easeushop/target/classes"/>
         <property name="context-root" value="easeushop"/>
     </wb-module>

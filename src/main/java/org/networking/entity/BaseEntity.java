@@ -11,7 +11,7 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	protected Long id;
 
     @Column(name = "CREATEDATE")
     private Date createDate;

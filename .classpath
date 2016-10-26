@@ -17,7 +17,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+=======
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+>>>>>>> origin/authserver-0001
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>

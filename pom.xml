@@ -103,7 +103,6 @@
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
-			<version>1.4.01</version>
 		</dependency>
 		<dependency>
 			<groupId>org.olap4j</groupId>
@@ -149,7 +148,11 @@
 			<version>3.4</version>
 			<scope>compile</scope>
 		</dependency>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> origin/authserver-0001
 	</dependencies>
 
 	<build>

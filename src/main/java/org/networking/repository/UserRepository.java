@@ -12,14 +12,14 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * Created by Gino on 8/28/2015.
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends  JpaRepository<User, Long> {
 
-	User findByUsername(String username);
+	User findByusername(String username);
 
     Page<User> findAll(Pageable pageable);
 
     @Modifying
-    @Query("update User u set u.pwd=?1 where u.id=?2")
+    @Query("update User u set u.password=?1 where u.id=?2")
     void updatePwdFor(String pwd, Long id);
 
     @Modifying

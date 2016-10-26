@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Package of components.
  *
@@ -25,4 +26,13 @@
  * @date 9/22/15
  * @since JDK1.8
  */
+=======
+/**
+ * 
+ */
+/**
+ * @author carlquan
+ *
+ */
+>>>>>>> origin/authserver-0001
 package org.networking.component;
