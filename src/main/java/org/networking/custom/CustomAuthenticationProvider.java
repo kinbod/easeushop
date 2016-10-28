@@ -38,11 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // Find user.
         String username = token.getName();
-<<<<<<< HEAD
-        User user = userRepository.findByUsername(username);
-=======
         User user = userRepository.findByusername(username);
->>>>>>> origin/authserver-0001
         if (user == null) { //If user does not exists, throw UsernameNotFoundException.
             throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
         }

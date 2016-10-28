@@ -1,18 +1,12 @@
 package org.networking.component;
 
 import org.apache.commons.lang3.StringUtils;
-<<<<<<< HEAD
 import org.networking.entity.Log;
 import org.networking.entity.User;
 import org.networking.enums.LogType;
 import org.networking.repository.LogRepository;
 import org.networking.tools.SpringSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
-import org.networking.entity.User;
-import org.networking.enums.LogType;
-import org.networking.tools.SpringSecurityUtils;
->>>>>>> origin/authserver-0001
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,7 +24,6 @@ public class LogHelper {
         String ip = SpringSecurityUtils.getCurrentUserIp();
         ip = StringUtils.isBlank(ip) ? "0.0.0.0.0.0.0.0:1" : ip;
         String clientId = SpringSecurityUtils.getCurrentUsername();
-<<<<<<< HEAD
         Log log = new Log();
         log.setLoginIP(ip);
         log.setClientId(clientId);
@@ -44,11 +37,5 @@ public class LogHelper {
 
     @Autowired
     private LogRepository logRepository;
-=======
 
-        // Log users' operations.
-        //logDomain.create(new LogParam(ip, logType, clientId, resource), currentUser);
-    }
-
->>>>>>> origin/authserver-0001
 }
