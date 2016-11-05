@@ -148,11 +148,8 @@
 			<version>3.4</version>
 			<scope>compile</scope>
 		</dependency>
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> origin/authserver-0001
+		
 	</dependencies>
 
 	<build>

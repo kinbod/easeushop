@@ -1,0 +1,82 @@
+# Allow Thymeleaf templates to be reloaded at dev time
+spring:
+  thymeleaf:
+    cache: false
+  resources:
+    chain:
+      enabled: true
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:file:~/testdb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+           
+server:
+  port: 8080
+  #context-path: /client
+  tomcat:
+    accesslog:
+      enabled: true
+      basedir: target/tomcat
+#Database
+db:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/networking?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  username: root
+  password: root
+#Hibernate
+hibernate:
+         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+         show_sql: true
+         format_sql: true
+         hbm2ddl:
+               auto: update
+entitymanager:
+            packagesToScan: org.networking
+            
+# basic security
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      scope: read,write
+      auto-approve-scopes: '.*'
+      grant-type: password
+  basic:
+    enabled: false
+
+facebook:
+  client:
+    clientId: 233668646673605
+    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me
+github:
+  client:
+    clientId: bd1c0a783ccdd1c9b9e4
+    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+

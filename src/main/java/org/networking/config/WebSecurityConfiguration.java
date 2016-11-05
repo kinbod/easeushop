@@ -76,10 +76,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 */
 		http.authorizeRequests().antMatchers("/user/**").authenticated().anyRequest().permitAll().and()
 				.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")).and()
-				.formLogin().loginPage("/login").loginProcessingUrl("/login.do").defaultSuccessUrl("/user/info")
+				.formLogin().loginPage("/login").loginProcessingUrl("/login.do").defaultSuccessUrl("/products")
 				.failureUrl("/login?err=1").permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").permitAll().and()
-				.addFilterBefore(githubFilter(), BasicAuthenticationFilter.class);
+				.addFilterBefore(githubFilter(), BasicAuthenticationFilter.class)
+				.csrf().disable().headers().frameOptions().disable();
 	}
 
 	private Filter githubFilter() {

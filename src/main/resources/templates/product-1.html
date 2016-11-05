@@ -1,77 +1,94 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <!-- Header Fragment -->
-<head th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Light N Lite')"></head>
+<head
+	th:replace="fragments/header :: header(pageTitle='DBLOC IBS - Light N Lite')"></head>
 
 <body>
-    <!-- Navigation Fragment -->
-    <nav th:replace="fragments/public-navigation :: public-navigation"></nav>
+	<!-- Navigation Fragment -->
+	<nav th:replace="fragments/public-navigation :: public-navigation"></nav>
 
-    <div class="container" style="margin-top: 70px;">
+	<div class="container" style="margin-top: 70px;">
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12">
-                    <hr/>
-                    <h2 class="text-center product-label"> 
-                        <strong>Light N’ Lite</strong>
-                    </h2>
-                    <hr/>
+		<div class="row">
+			<div class="box">
+				<div class="col-lg-12">
+					<hr />
+					<h2 class="text-center product-label">
+						<strong>Light N’ Lite</strong>
+					</h2>
+					<hr />
 					<p>
-						<span class="bold-label">Active Ingredients and its Benefits </span>
+						<span class="bold-label">Active Ingredients and its
+							Benefits </span>
 					</p>
 					<ul>
 						<li><p>
-							<span class="bold-label">L-Glutathione</span> - powerful anti-oxidant due to its ability to protect the body against the damages caused by Heavy metals and environmental Toxins. 
-							As an anti-aging it helps protect skin cells against chemical exposure and age related illness.
-						</p></li>
+								<span class="bold-label">L-Glutathione</span> - powerful
+								anti-oxidant due to its ability to protect the body against the
+								damages caused by Heavy metals and environmental Toxins. As an
+								anti-aging it helps protect skin cells against chemical exposure
+								and age related illness.
+							</p></li>
 						<li><p>
-							<span class="bold-label">Garcinia Extract</span> - helps to reduce food intake by suppressing appetite and as well as to reduce body fat.
-						</p></li>
+								<span class="bold-label">Garcinia Extract</span> - helps to
+								reduce food intake by suppressing appetite and as well as to
+								reduce body fat.
+							</p></li>
 						<li><p>
-							<span class="bold-label">Green Tea Extract</span> - it has thermogenic effects that aids in the weight loss without causing jitters or other unwanted side effects.
-						</p></li>
+								<span class="bold-label">Green Tea Extract</span> - it has
+								thermogenic effects that aids in the weight loss without causing
+								jitters or other unwanted side effects.
+							</p></li>
 						<li><p>
-							<span class="bold-label">Sodium Ascorbate</span> - plays an important role in our body; helps boost immune system to fight infection/ disease.  
-						</p></li>
+								<span class="bold-label">Sodium Ascorbate</span> - plays an
+								important role in our body; helps boost immune system to fight
+								infection/ disease.
+							</p></li>
 					</ul>
 					<p>
 						<span class="bold-label">Testimonials: </span>Coming Soon
 					</p>
-					<a href="products#product-1"><h4 class="product-button text-center">Back to Products Page</h4></a>
+					<a href="products#product-1"><h4
+							class="product-button text-center">Back to Products Page</h4></a>
 				</div>
-            </div>
-        </div>
+			</div>
+		</div>
 
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer Fragment -->
-    <footer th:replace="fragments/footer :: footer"></footer>
-    
-    <div id="loginModal" class="modal fade">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                <h4 class="modal-title text-center">Members' Login</h4>
-	            </div>
-	            <div class="modal-body text-center">
-	                <p>Usernames and passwords will be available by <span class="bold-label">Sept 15</span>. 
-					Please visit our office for details.</p>
-	            </div>
-	        </div>
-	    </div>
 	</div>
-	
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+	<!-- /.container -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    
-    <script type="text/javascript">
+	<!-- Footer Fragment -->
+	<footer th:replace="fragments/footer :: footer"></footer>
+
+	<div id="loginModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-center">Members' Login</h4>
+				</div>
+				<div class="modal-body text-center">
+					<p>
+						Usernames and passwords will be available by <span
+							class="bold-label">Sept 15</span>. Please visit our office for
+						details.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
 	    $(document).ready(function() {
 	    	
 		}).on('click', '#members-login', function() {
