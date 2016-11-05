@@ -35,7 +35,7 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        Set<Role> roles = getRoles();
+        Set<Role> roles = super.getRoles();
         for (Role role : roles) {
             Set<Group> groups = role.getGroups();
             for (Group group : groups) {
@@ -51,12 +51,12 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
 
     @Override
     public String getUsername() {
-        return getUsername();
+        return super.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return super.getPassword();
     }
 
     @Override
