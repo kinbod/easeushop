@@ -25,7 +25,6 @@ public class Member extends User{
 
 	public Member(User user) {
 		super(user);
-		// TODO Auto-generated constructor stub
 	}
 
 	@JsonView
