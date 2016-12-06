@@ -19,9 +19,18 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-           
+  dubbo:
+    application:
+      name: provider
+    registry:
+      address: zookeeper://127.0.0.1:21811
+    protocol:
+      name: dubbo
+      port: 20880
+    scan: org.networking.service
+
 server:
-  port: 8080
+  port: 8090
   #context-path: /client
   tomcat:
     accesslog:

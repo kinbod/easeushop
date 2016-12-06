@@ -3,6 +3,8 @@
  */
 package org.networking.secure;
 
+import org.springframework.security.crypto.codec.Base64;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import it.sauronsoftware.base64.Base64;
 
 /**
  * @author carlquan
@@ -23,6 +24,18 @@ public class Base64Utils {
 	 * 文件读取缓冲区大小
 	 */
 	private static final int CACHE_SIZE = 1024;
+
+	/**
+	 * <p>
+	 * BASE64字符串解码为二进制数据
+	 * </p>
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] decode() throws Exception {
+		return decode();
+	}
 
 	/**
 	 * <p>
