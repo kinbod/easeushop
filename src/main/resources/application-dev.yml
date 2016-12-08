@@ -23,7 +23,7 @@ spring:
     application:
       name: provider
     registry:
-      address: zookeeper://127.0.0.1:21811
+      address: zookeeper://192.168.31.179:21811
     protocol:
       name: dubbo
       port: 20880

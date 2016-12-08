@@ -1,6 +1,8 @@
 package org.networking.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.networking.entity.User;
+import org.networking.service.DubboInterface;
 import org.networking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
